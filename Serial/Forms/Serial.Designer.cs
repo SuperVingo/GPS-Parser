@@ -1,4 +1,4 @@
-﻿namespace Serial
+﻿namespace GPSParseTool
 {
     partial class Serial
     {

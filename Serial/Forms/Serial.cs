@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 
-namespace Serial
+namespace GPSParseTool
 {
     public partial class Serial : Form
     {

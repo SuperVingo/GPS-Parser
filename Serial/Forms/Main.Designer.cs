@@ -1,4 +1,4 @@
-﻿namespace Serial
+﻿namespace GPSParseTool
 {
     partial class Main
     {
@@ -39,16 +39,20 @@
             this.DataList = new System.Windows.Forms.ListBox();
             this.DataTree = new System.Windows.Forms.TreeView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ListView = new System.Windows.Forms.ListView();
+            this.Attribute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RawText = new System.Windows.Forms.TextBox();
             this.LoadGPXBtn = new System.Windows.Forms.Button();
-            this.ExportGPXBtn = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
+            this.ListClrBtn = new System.Windows.Forms.Button();
+            this.ExportGPXBtn = new System.Windows.Forms.Button();
+            this.OpenLogBtn = new System.Windows.Forms.Button();
+            this.SendSerial = new System.IO.Ports.SerialPort(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            //
-            // serialPort
-            //
-            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             // 
             // RateCombo
             // 
@@ -111,7 +115,7 @@
             this.ClearBtn.Name = "ClearBtn";
             this.ClearBtn.Size = new System.Drawing.Size(90, 23);
             this.ClearBtn.TabIndex = 5;
-            this.ClearBtn.Text = "Clear";
+            this.ClearBtn.Text = "Stop";
             this.ClearBtn.UseVisualStyleBackColor = true;
             this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
@@ -127,37 +131,83 @@
             // 
             // DataList
             // 
-            this.DataList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.DataList.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.DataList.FormattingEnabled = true;
             this.DataList.Location = new System.Drawing.Point(12, 125);
             this.DataList.Name = "DataList";
-            this.DataList.Size = new System.Drawing.Size(200, 524);
+            this.DataList.Size = new System.Drawing.Size(200, 498);
             this.DataList.TabIndex = 5;
+            this.DataList.SelectedIndexChanged += new System.EventHandler(this.DataList_SelectedIndexChanged);
             // 
             // DataTree
             // 
-            this.DataTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.DataTree.Location = new System.Drawing.Point(6, 20);
             this.DataTree.Name = "DataTree";
-            this.DataTree.Size = new System.Drawing.Size(216, 637);
+            this.DataTree.Size = new System.Drawing.Size(216, 236);
             this.DataTree.TabIndex = 6;
+            this.DataTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.DataTree_AfterSelect);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.ListView);
+            this.groupBox2.Controls.Add(this.RawText);
             this.groupBox2.Controls.Add(this.DataTree);
             this.groupBox2.Location = new System.Drawing.Point(218, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1034, 663);
+            this.groupBox2.Size = new System.Drawing.Size(1042, 663);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Information";
+            // 
+            // ListView
+            // 
+            this.ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Attribute,
+            this.Value,
+            this.Description});
+            this.ListView.GridLines = true;
+            this.ListView.HideSelection = false;
+            this.ListView.Location = new System.Drawing.Point(6, 262);
+            this.ListView.MultiSelect = false;
+            this.ListView.Name = "ListView";
+            this.ListView.Size = new System.Drawing.Size(1030, 395);
+            this.ListView.TabIndex = 8;
+            this.ListView.UseCompatibleStateImageBehavior = false;
+            this.ListView.View = System.Windows.Forms.View.Details;
+            // 
+            // Attribute
+            // 
+            this.Attribute.Text = "Attribute";
+            this.Attribute.Width = 150;
+            // 
+            // Value
+            // 
+            this.Value.Text = "Value";
+            this.Value.Width = 360;
+            // 
+            // Description
+            // 
+            this.Description.Text = "Description";
+            this.Description.Width = 580;
+            // 
+            // RawText
+            // 
+            this.RawText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RawText.Location = new System.Drawing.Point(228, 20);
+            this.RawText.Multiline = true;
+            this.RawText.Name = "RawText";
+            this.RawText.ReadOnly = true;
+            this.RawText.Size = new System.Drawing.Size(808, 236);
+            this.RawText.TabIndex = 7;
             // 
             // LoadGPXBtn
             // 
@@ -165,38 +215,69 @@
             this.LoadGPXBtn.BackColor = System.Drawing.SystemColors.Control;
             this.LoadGPXBtn.Location = new System.Drawing.Point(12, 652);
             this.LoadGPXBtn.Name = "LoadGPXBtn";
-            this.LoadGPXBtn.Size = new System.Drawing.Size(95, 23);
+            this.LoadGPXBtn.Size = new System.Drawing.Size(97, 23);
             this.LoadGPXBtn.TabIndex = 7;
-            this.LoadGPXBtn.Text = "Load GPX";
+            this.LoadGPXBtn.Text = "View GPX";
             this.LoadGPXBtn.UseVisualStyleBackColor = false;
+            this.LoadGPXBtn.Click += new System.EventHandler(this.LoadGPXBtn_Click);
+            // 
+            // serialPort
+            // 
+            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
+            // 
+            // ListClrBtn
+            // 
+            this.ListClrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ListClrBtn.Location = new System.Drawing.Point(115, 652);
+            this.ListClrBtn.Name = "ListClrBtn";
+            this.ListClrBtn.Size = new System.Drawing.Size(97, 23);
+            this.ListClrBtn.TabIndex = 8;
+            this.ListClrBtn.Text = "Clear";
+            this.ListClrBtn.UseVisualStyleBackColor = true;
+            this.ListClrBtn.Click += new System.EventHandler(this.ListClrBtn_Click);
             // 
             // ExportGPXBtn
             // 
             this.ExportGPXBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ExportGPXBtn.Location = new System.Drawing.Point(113, 652);
+            this.ExportGPXBtn.Location = new System.Drawing.Point(12, 626);
             this.ExportGPXBtn.Name = "ExportGPXBtn";
-            this.ExportGPXBtn.Size = new System.Drawing.Size(99, 23);
-            this.ExportGPXBtn.TabIndex = 7;
+            this.ExportGPXBtn.Size = new System.Drawing.Size(97, 23);
+            this.ExportGPXBtn.TabIndex = 9;
             this.ExportGPXBtn.Text = "Export GPX";
             this.ExportGPXBtn.UseVisualStyleBackColor = true;
+            this.ExportGPXBtn.Click += new System.EventHandler(this.ExportGPXBtn_Click);
+            // 
+            // OpenLogBtn
+            // 
+            this.OpenLogBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.OpenLogBtn.Location = new System.Drawing.Point(115, 626);
+            this.OpenLogBtn.Name = "OpenLogBtn";
+            this.OpenLogBtn.Size = new System.Drawing.Size(97, 23);
+            this.OpenLogBtn.TabIndex = 10;
+            this.OpenLogBtn.Text = "Open Log";
+            this.OpenLogBtn.UseVisualStyleBackColor = true;
+            this.OpenLogBtn.Click += new System.EventHandler(this.OpenLogBtn_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.OpenLogBtn);
             this.Controls.Add(this.ExportGPXBtn);
+            this.Controls.Add(this.ListClrBtn);
             this.Controls.Add(this.LoadGPXBtn);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.DataList);
             this.Controls.Add(this.groupBox1);
             this.Name = "Main";
             this.Text = "GPS Parser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(Main_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -214,8 +295,16 @@
         private System.Windows.Forms.Button ClearBtn;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button LoadGPXBtn;
-        private System.Windows.Forms.Button ExportGPXBtn;
         private System.IO.Ports.SerialPort serialPort;
+        private System.Windows.Forms.ListView ListView;
+        private System.Windows.Forms.TextBox RawText;
+        private System.Windows.Forms.Button ListClrBtn;
+        private System.Windows.Forms.ColumnHeader Attribute;
+        private System.Windows.Forms.ColumnHeader Value;
+        private System.Windows.Forms.ColumnHeader Description;
+        private System.Windows.Forms.Button ExportGPXBtn;
+        private System.Windows.Forms.Button OpenLogBtn;
+        private System.IO.Ports.SerialPort SendSerial;
     }
 }
 

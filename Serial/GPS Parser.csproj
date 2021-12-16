@@ -46,6 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Wait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Wait.Designer.cs">
+      <DependentUpon>Wait.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GPXData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GPXData.Designer.cs">
+      <DependentUpon>GPXData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoadGPSLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoadGPSLog.Designer.cs">
+      <DependentUpon>LoadGPSLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibGPS\Defines.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,9 +77,20 @@
     <Compile Include="Forms\Serial.Designer.cs">
       <DependentUpon>Serial.cs</DependentUpon>
     </Compile>
-    <Compile Include="GPSProtocol.cs" />
+    <Compile Include="LibGPS\GPSData.cs" />
+    <Compile Include="LibGPS\GPSParse.cs" />
+    <Compile Include="LibGPS\GPSProtocol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Wait.resx">
+      <DependentUpon>Wait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GPXData.resx">
+      <DependentUpon>GPXData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoadGPSLog.resx">
+      <DependentUpon>LoadGPSLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,11 +115,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Source\example.gpx" />
+    <None Include="Source\example2.gpx" />
+    <None Include="Source\exampleshort.gpx" />
+    <None Include="Source\seorak.gpx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GetLocationhref.html" />
+    <Content Include="ExampleHtml.html" />
+    <Content Include="GPXView.html" />
     <Content Include="Source\satellite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

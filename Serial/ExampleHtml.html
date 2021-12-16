@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9orcuoh4cu"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <div id="map" style="width:100%;height:400px;"></div>
+
+    <script>
+        var HOME_PATH_1 = 'file://G:/SerialConnection/Serial/GPS-Parser/Serial/Source/exampleshort.gpx';
+        var HOME_PATH_2 = 'G:/SerialConnection/Serial/GPS-Parser/Serial/Source/exampleshort.gpx';
+        var HOME_PATH_3 = './Source/exampleshort.gpx';
+        var HOME_PATH_4 = './Source/seorak.gpx';
+
+        var map = new naver.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            mapTypeId: 'normal',
+            center: new naver.maps.LatLng(38.1361378, 128.4021238)
+        });
+
+        $.ajax({
+            url: HOME_PATH_3,
+            dataType: 'xml',
+            success: function (xmlDoc) {
+                map.data.addGpx(xmlDoc);
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+
+    </script>
+</body>
+</html>
